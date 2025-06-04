@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from buscaLogEventos import LeitorDeEventos
 import win32evtlog
+import threading
+import time
 
 # Classe que monta a interface gráfica para visualizar os eventos
 class visualizadorEventos:
@@ -16,33 +18,73 @@ class visualizadorEventos:
             "Todos": None
         }
 
+        self.mapa_intervalos = {
+            "Única (manual)": 0,
+            "5 segundos": 5,
+            "10 segundos": 10,
+            "20 segundos": 20,
+            "30 segundos": 30
+        }
+
+        self.parar_atualizacao = False
+
         self.criar_elementos_interface()
-# Cria e organiza os widgets da interface gráfica.
+
     def criar_elementos_interface(self):
         frame = ttk.Frame(self.root, padding="10")
         frame.pack(fill=tk.BOTH, expand=True)
 
         ttk.Label(frame, text="Tipo de Evento:").grid(column=0, row=0, sticky=tk.W)
         self.tipo_evento_var = tk.StringVar(value="Todos")
-        self.combo = ttk.Combobox(frame, textvariable=self.tipo_evento_var, state="readonly")
-        self.combo['values'] = list(self.mapa_tipos_evento.keys())
-        self.combo.grid(column=1, row=0, sticky=tk.W)
+        self.combo_tipo = ttk.Combobox(frame, textvariable=self.tipo_evento_var, state="readonly")
+        self.combo_tipo['values'] = list(self.mapa_tipos_evento.keys())
+        self.combo_tipo.grid(column=1, row=0, sticky=tk.W)
 
-        self.botao_buscar = ttk.Button(frame, text="Buscar Eventos", command=self.buscar_eventos)
-        self.botao_buscar.grid(column=2, row=0, padx=5)
+        ttk.Label(frame, text="Qtd Máxima de Eventos:").grid(column=0, row=1, sticky=tk.W)
+        self.qtd_var = tk.IntVar(value=100)
+        self.qtd_entry = ttk.Entry(frame, textvariable=self.qtd_var, width=10)
+        self.qtd_entry.grid(column=1, row=1, sticky=tk.W)
+
+        ttk.Label(frame, text="Intervalo de Atualização:").grid(column=0, row=2, sticky=tk.W)
+        self.intervalo_var = tk.StringVar(value="Única (manual)")
+        self.combo_intervalo = ttk.Combobox(frame, textvariable=self.intervalo_var, state="readonly")
+        self.combo_intervalo['values'] = list(self.mapa_intervalos.keys())
+        self.combo_intervalo.grid(column=1, row=2, sticky=tk.W)
+
+        self.botao_buscar = ttk.Button(frame, text="Iniciar", command=self.iniciar_busca)
+        self.botao_buscar.grid(column=2, row=2, padx=5)
+
+        self.botao_parar = ttk.Button(frame, text="Parar", command=self.parar)
+        self.botao_parar.grid(column=2, row=3, pady=5)
 
         self.area_texto = tk.Text(frame, wrap=tk.WORD, height=25, width=100)
-        self.area_texto.grid(column=0, row=1, columnspan=3, pady=10)
+        self.area_texto.grid(column=0, row=4, columnspan=3, pady=10)
+
+    def iniciar_busca(self):
+        self.parar_atualizacao = False
+        intervalo = self.mapa_intervalos[self.intervalo_var.get()]
+        if intervalo == 0:
+            self.buscar_eventos()
+        else:
+            threading.Thread(target=self.atualizacao_periodica, args=(intervalo,), daemon=True).start()
+
+    def parar(self):
+        self.parar_atualizacao = True
+
+    def atualizacao_periodica(self, intervalo):
+        while not self.parar_atualizacao:
+            self.buscar_eventos()
+            time.sleep(intervalo)
 
     def buscar_eventos(self):
-#Busca e exibe os eventos do Windows conforme o tipo selecionado.
         self.area_texto.delete(1.0, tk.END)
         rotulo_tipo = self.tipo_evento_var.get()
         tipo_evento = self.mapa_tipos_evento[rotulo_tipo]
         leitor = LeitorDeEventos()
+        maximo = self.qtd_var.get()
 
         try:
-            eventos = leitor.ler_eventos(tipos_evento=None if tipo_evento is None else [tipo_evento])
+            eventos = leitor.ler_eventos(tipos_evento=None if tipo_evento is None else [tipo_evento], maximo=maximo)
             for evt in eventos:
                 mensagem = evt['Mensagem'] if evt['Mensagem'] else ['']
                 self.area_texto.insert(tk.END, f"[{evt['DataHora']}] {evt['Fonte']} - ID {evt['ID']}\n")
