@@ -1,10 +1,7 @@
 import tkinter as tk
-from visual import visualizadorEventos
-
-def main():
-    root = tk.Tk()
-    app = visualizadorEventos(root)
-    root.mainloop()
+from visual import VisualizadorEventos
 
 if __name__ == "__main__":
-    main()
+    root = tk.Tk()
+    app = VisualizadorEventos(root)
+    root.mainloop()

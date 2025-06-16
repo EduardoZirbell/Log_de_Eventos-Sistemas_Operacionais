@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "l608NCF2ZDI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Eduardo Zirbell\\Documents\\Projetos\\Log_de_Eventos-Sistemas_Operacionais\\LogReaderApp\\LogReaderApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Eduardo Zirbell\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.6\\system.diagnostics.eventlog.9.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}
