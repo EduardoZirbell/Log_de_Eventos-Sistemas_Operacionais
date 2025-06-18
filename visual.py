@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox, filedialog
 import threading
 import time
 import csv
-from log_utils import get_log_events
+from log_utils import obter_eventos_log
 
 class VisualizadorEventos:
     def __init__(self, root):
@@ -138,7 +138,7 @@ class VisualizadorEventos:
         try:
             self.status_var.set("Buscando eventos...")
             self.root.update_idletasks()
-            eventos = get_log_events(qtd)
+            eventos = obter_eventos_log(qtd)
             if tipo != "Todos":
                 eventos = [evt for evt in eventos if evt.get('Type', '').lower() == tipo.lower()]
             busca = self.busca_var.get().lower()

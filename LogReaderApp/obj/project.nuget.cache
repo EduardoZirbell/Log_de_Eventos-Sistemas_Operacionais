@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "orIU9iWAdxc=",
+  "dgSpecHash": "dRGFzCARp7Q=",
   "success": true,
-  "projectFilePath": "/mnt/c/Users/Eduardo Zirbell/Documents/Projetos/Log_de_Eventos-Sistemas_Operacionais/LogReaderApp/LogReaderApp.csproj",
+  "projectFilePath": "C:\\Users\\eduar\\OneDrive\\Documentos\\Projetos\\Log_de_Eventos-Sistemas_Operacionais\\LogReaderApp\\LogReaderApp.csproj",
   "expectedPackageFiles": [
-    "/root/.nuget/packages/system.diagnostics.eventlog/9.0.6/system.diagnostics.eventlog.9.0.6.nupkg.sha512"
+    "C:\\Users\\eduar\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.6\\system.diagnostics.eventlog.9.0.6.nupkg.sha512",
+    "C:\\Users\\eduar\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.17\\microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\eduar\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.17\\microsoft.windowsdesktop.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\eduar\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.17\\microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\eduar\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.17\\microsoft.netcore.app.host.win-x64.8.0.17.nupkg.sha512"
   ],
   "logs": []
 }

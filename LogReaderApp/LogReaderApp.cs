@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 
 // Representa um evento de log do sistema
-public class LogEvent
+public class Evento
 {
     // Fonte do evento (serviço, programa, etc.)
     public string Fonte { get; set; }
@@ -21,10 +21,10 @@ public class LogEvent
 }
 
 // Representa o leitor de eventos do sistema operacional
-public class LogReader
+public class LeitorLog
 {
     // Verifique qual sistema operacional para decidir o método que irá usar
-    public IEnumerable<LogEvent> LerEventos(int maximoEventos)
+    public IEnumerable<Evento> LerEventos(int maximoEventos)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
@@ -41,20 +41,20 @@ public class LogReader
         // Retorno padrão caso nenhum SO seja identificado
         else
         {
-            return new List<LogEvent>();
+            return new List<Evento>();
         }
     }
 
     // Lê eventos do log do Windows
-    private IEnumerable<LogEvent> LerEventosWindows(int maximoEventos)
+    private IEnumerable<Evento> LerEventosWindows(int maximoEventos)
     {
         // Cria uma lista para armazenar os eventos lidos
-        var eventos = new List<LogEvent>();
+        var eventos = new List<Evento>();
 
         // Abre o log de eventos do sistema do Windows
         using (EventLog logWindows = new EventLog("System"))
         {
-            // Total de entradas no log
+            // Total de log lidos pelo LeitorLog
             int total = logWindows.Entries.Count;
             int contador = 0; 
 
@@ -63,7 +63,7 @@ public class LogReader
             {
                 var entrada = logWindows.Entries[i]; 
 
-                eventos.Add(new LogEvent
+                eventos.Add(new Evento
                 {
                     Fonte = entrada.Source, 
                     DataHora = entrada.TimeGenerated,
@@ -78,12 +78,12 @@ public class LogReader
     }
 
     // Lê eventos do log do Linux
-    private IEnumerable<LogEvent> LerEventosUnix(int maximoEventos)
+    private IEnumerable<Evento> LerEventosUnix(int maximoEventos)
     {
-        var eventos = new List<LogEvent>();
+        var eventos = new List<Evento>();
         try
         {
-            // Monta o comando para buscar os logs mais recentes no formato ISO
+            // Monta o comando para buscar os logs
             var psi = new System.Diagnostics.ProcessStartInfo
             {
                 FileName = "journalctl",
@@ -95,6 +95,7 @@ public class LogReader
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
+            // Inicia um novo processo com as configurações especificadas em 'psi'.
             using (var processo = System.Diagnostics.Process.Start(psi))
             using (var leitor = processo.StandardOutput)
             {
@@ -109,6 +110,7 @@ public class LogReader
                     // Extrai a data do início da linha (formato ISO)
                     string[] partes = linha.Split(' ', 3);
                     DateTime dataHora = DateTime.Now;
+                    // Tenta converter a primeira parte da linha para DateTime
                     if (partes.Length > 0)
                         DateTime.TryParse(partes[0], out dataHora);
 
@@ -128,7 +130,7 @@ public class LogReader
                     else if (linha.ToLower().Contains("warn")) tipo = "Warning";
 
                     // Adiciona o evento à lista
-                    eventos.Add(new LogEvent
+                    eventos.Add(new Evento
                     {
                         Fonte = fonte,
                         DataHora = dataHora,
@@ -144,7 +146,7 @@ public class LogReader
         catch (Exception ex)
         {
             // Em caso de erro, adiciona um evento de erro à lista
-            eventos.Add(new LogEvent
+            eventos.Add(new Evento
             {
                 Fonte = "journalctl",
                 DataHora = DateTime.Now,
@@ -167,7 +169,7 @@ public class Program
         if (args.Length > 0 && int.TryParse(args[0], out int n))
             maximoEventos = n;
 
-        var leitor = new LogReader();
+        var leitor = new LeitorLog();
         var eventos = leitor.LerEventos(maximoEventos);
         // Serializa a lista de eventos para JSON e imprime no console
         string json = JsonSerializer.Serialize(eventos);

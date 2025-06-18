@@ -7,7 +7,7 @@ def obter_eventos_log(qtd=100):
     sistema = platform.system()
     if sistema == "Windows":
         # Monta o caminho do executável do leitor de logs para Windows
-        caminho_exe = os.path.join("LogReaderApp", "bin", "Release", "net8.0", "LogReaderApp.exe")
+        caminho_exe = os.path.join("LogReaderApp", "bin", "Release", "net9.0", "LogReaderApp.exe")
         # Verifica se o executável existe
         if not os.path.exists(caminho_exe):
             raise FileNotFoundError(f"Executável não encontrado: {caminho_exe}")
@@ -15,7 +15,7 @@ def obter_eventos_log(qtd=100):
         resultado = subprocess.run([caminho_exe, str(qtd)], capture_output=True, text=True)
     else:
         # Monta o caminho da DLL para Linux/macOS
-        caminho_dll = os.path.join("LogReaderApp", "bin", "Release", "net8.0", "LogReaderApp.dll")
+        caminho_dll = os.path.join("LogReaderApp", "bin", "Release", "net9.0", "LogReaderApp.dll")
         # Verifica se a DLL existe
         if not os.path.exists(caminho_dll):
             raise FileNotFoundError(f"Arquivo DLL não encontrado: {caminho_dll}")
