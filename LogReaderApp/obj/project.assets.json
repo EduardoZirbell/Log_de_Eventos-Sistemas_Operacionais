@@ -1,16 +1,16 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {
+    "net8.0": {
       "System.Diagnostics.EventLog/9.0.6": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Diagnostics.EventLog.dll": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net9.0/System.Diagnostics.EventLog.dll": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
             "related": ".xml"
           }
         },
@@ -18,11 +18,11 @@
           "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.Messages.dll": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll": {
             "assetType": "runtime",
             "rid": "win"
           },
-          "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.dll": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -67,34 +67,34 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net9.0": [
+    "net8.0": [
       "System.Diagnostics.EventLog >= 9.0.6"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Eduardo Zirbell\\.nuget\\packages\\": {}
+    "/root/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Eduardo Zirbell\\Documents\\Projetos\\Log_de_Eventos-Sistemas_Operacionais\\LogReaderApp\\LogReaderApp.csproj",
+      "projectUniqueName": "/mnt/c/Users/Eduardo Zirbell/Documents/Projetos/Log_de_Eventos-Sistemas_Operacionais/LogReaderApp/LogReaderApp.csproj",
       "projectName": "LogReaderApp",
-      "projectPath": "C:\\Users\\Eduardo Zirbell\\Documents\\Projetos\\Log_de_Eventos-Sistemas_Operacionais\\LogReaderApp\\LogReaderApp.csproj",
-      "packagesPath": "C:\\Users\\Eduardo Zirbell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Eduardo Zirbell\\Documents\\Projetos\\Log_de_Eventos-Sistemas_Operacionais\\LogReaderApp\\obj\\",
+      "projectPath": "/mnt/c/Users/Eduardo Zirbell/Documents/Projetos/Log_de_Eventos-Sistemas_Operacionais/LogReaderApp/LogReaderApp.csproj",
+      "packagesPath": "/root/.nuget/packages/",
+      "outputPath": "/mnt/c/Users/Eduardo Zirbell/Documents/Projetos/Log_de_Eventos-Sistemas_Operacionais/LogReaderApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Eduardo Zirbell\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/root/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net9.0"
+        "net8.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {}
         }
       },
@@ -106,13 +106,12 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+        "auditMode": "direct"
+      }
     },
     "frameworks": {
-      "net9.0": {
-        "targetAlias": "net9.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "System.Diagnostics.EventLog": {
             "target": "Package",
@@ -135,7 +134,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/256/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
