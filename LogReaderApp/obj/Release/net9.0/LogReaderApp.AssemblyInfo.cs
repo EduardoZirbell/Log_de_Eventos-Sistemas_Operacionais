@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LogReaderApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6aa44f039eb6982a248710d65f86550b4ec96061")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c67e150aad41f50121c22bf51cffefb42e1a5a83")]
 [assembly: System.Reflection.AssemblyProductAttribute("LogReaderApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LogReaderApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
